@@ -1,4 +1,4 @@
-from CivilPlane import CivilPlane
+from civil_plane import CivilPlane
 
 
 class PassengerPlane(CivilPlane):

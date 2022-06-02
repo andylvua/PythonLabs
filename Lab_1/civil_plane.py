@@ -1,4 +1,4 @@
-from Plane import Plane
+from plane import Plane
 
 
 class CivilPlane(Plane):

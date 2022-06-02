@@ -1,5 +1,5 @@
-from Bomber import Bomber
-from WarPlane import WarPlane
+from bomber import Bomber
+from war_plane import WarPlane
 
 
 class Destroyer(WarPlane):

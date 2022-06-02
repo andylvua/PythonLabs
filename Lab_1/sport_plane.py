@@ -1,4 +1,4 @@
-from CivilPlane import CivilPlane
+from Lab_1.civil_plane import CivilPlane
 
 
 class SportPlane(CivilPlane):

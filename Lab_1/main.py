@@ -1,8 +1,8 @@
-from Bomber import Bomber
-from Destroyer import Destroyer
-from PassengerPlane import PassengerPlane
-from Planner import Planner
-from SportPlane import SportPlane
+from bomber import Bomber
+from destroyer import Destroyer
+from passenger_plane import PassengerPlane
+from planner import Planner
+from sport_plane import SportPlane
 
 
 def main():
