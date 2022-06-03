@@ -1,3 +1,7 @@
+[![Python 3.10](https://img.shields.io/badge/Python-3.10.2-yellow)](https://www.python.org/downloads/release/python-3102/)
+[![pytest 7.1.2](https://img.shields.io/badge/pytest-7.1.2-blue)](https://pypi.org/project/pytest/)
+
+[![Python application](https://github.com/andylvua/PythonLabs/actions/workflows/python-app.yml/badge.svg)](https://github.com/andylvua/PythonLabs/actions/workflows/python-app.yml)
 # Laboratory work 9
 ## Task description
 
