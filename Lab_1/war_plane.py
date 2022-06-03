@@ -1,4 +1,4 @@
-from Plane import Plane
+from Lab_1.plane import Plane
 
 
 class WarPlane(Plane):

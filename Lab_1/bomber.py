@@ -1,4 +1,4 @@
-from WarPlane import WarPlane
+from war_plane import WarPlane
 
 
 class Bomber(WarPlane):
