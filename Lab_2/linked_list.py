@@ -14,31 +14,50 @@ class CircularLinkedList:
         """
         self.__head = None
 
-    def print_info(self, measurement_limit: float) -> None:
+    def to_list(self) -> list:
         """
-        Prints the information of all nodes in the linked list
-        that have a measurement limit equal to the given parameter.
-        If no such node exists, it prints an error message.
+        The to_list function returns a list of the nodes in the linked list.
+        The function returns a list of dictionaries, where each dictionary contains information about one node.
 
-        :param self: Access the attributes and methods of the class
-        :param measurement_limit: float: Specify the measurement limit of the nodes that are printed
+        :param self: Reference the object itself
+        :return: A list of all the nodes in the linked list
         """
-        present = False
+        linked_list = list()
+
+        current_node = self.__head
+
+        linked_list.append(current_node.__dict__)
+
+        current_node = self.__head.next
+
+        while current_node != self.__head:
+            linked_list.append(current_node.__dict__)
+            current_node = current_node.next
+        return linked_list
+
+    def get_by_measurement_limit(self, measurement_limit: float) -> list:
+        """
+        Returns list containing the information of all nodes in the linked list
+        that have a measurement limit equal to the given parameter.
+        If no such node exists, it returns the empty list.
+
+        :param self: Access variables that belongs to the class
+        :param measurement_limit:float: Specify the measurement limit of the items that will be returned in a list
+        :return: A list of items that have the measurement limit specified in the function parameter
+        """
+        list_of_items = list()
 
         if self.__head.measurement_limit == measurement_limit:
-            print(self.__head)
-            present = True
+            list_of_items.append(self.__head)
 
         current_node = self.__head.next
 
         while current_node != self.__head:
             if current_node.measurement_limit == measurement_limit:
-                print(current_node)
-                present = True
+                list_of_items.append(current_node)
             current_node = current_node.next
 
-        if not present:
-            print("Error: nothing's found")
+        return list_of_items
 
     def insert(self, inserting_node: Node) -> CircularLinkedList:
         """

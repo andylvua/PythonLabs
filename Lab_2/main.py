@@ -11,7 +11,10 @@ def main() -> None:
         .insert(Node("S-12", "Multimeter", 1999, 10)) \
         .insert(Node("KL-768", "Multimeter", 2020, 60))
 
-    linked_list.print_info(15)
+    items = linked_list.get_by_measurement_limit(15)
+
+    for item in items:
+        print(item)
 
 
 if __name__ == '__main__':
