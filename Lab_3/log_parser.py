@@ -12,7 +12,15 @@ from matplotlib.ticker import MaxNLocator
 import seaborn as sns
 
 
-def read_zip_file(file_path):
+def read_zip_file(file_path: str) -> list[str]:
+    """
+    The read_zip_file function reads a zip file and extracts the contents to a directory.
+    It then opens the text file that was extracted from the zip file, reads it line by line,
+    and returns a list of strings containing each line.
+
+    :param file_path: str: Specify the path to the file that is going to be read
+    :return: A list of lines as strings
+    """
     with zipfile.ZipFile(file_path, 'r') as zip_ref:
         zip_ref.extractall("resources/")
 
@@ -23,7 +31,20 @@ def read_zip_file(file_path):
     return lines
 
 
-def statistics_of_requests_in_datetime_range(file_path, start_datetime, end_datetime):
+def statistics_of_requests_in_datetime_range(file_path: str, start_datetime: str, end_datetime: str,
+                                             statistics: bool = True, save_plot: bool = False) -> None:
+    """
+    The statistics_of_requests_in_datetime_range function takes a file path, start datetime and end datetime as strings
+    and prints the statistics of requests in that time range. If save_plot is True, it also saves a plot of the data to
+    the ``statistics`` directory.
+
+    :param file_path: str: Specify the path to the log file
+    :param start_datetime: str: Specify the start time to be analyzed. Format: "01/Jan/2000:00:00:00"
+    :param end_datetime: str: Specify the end time to be analyzed. Format: "01/Jan/2000:00:00:00"
+    :param statistics: bool: Whether to print the statistics or not. Defaults to True
+    :param save_plot: bool: Save to statistics plot. Defaults to False
+    :return: The statistics and the plot of the requests in a specific time range
+    """
     lines = read_zip_file(file_path)
 
     start = datetime.strptime(start_datetime, "%d/%b/%Y:%H:%M:%S")
@@ -41,11 +62,22 @@ def statistics_of_requests_in_datetime_range(file_path, start_datetime, end_date
         if start <= time_formatted <= end:
             info[status_code_match] = info.get(status_code_match, 0) + 1
 
-    print_statistics(file_path, info, start_datetime, end_datetime)
-    show_statistics_plot(file_path, info, start_datetime, end_datetime)
+    if statistics:
+        print_statistics(file_path, info, start_datetime, end_datetime)
+    if save_plot:
+        save_statistics_plot(file_path, info, start_datetime, end_datetime)
 
 
-def print_statistics(file_path, info, start_datetime, end_datetime):
+def print_statistics(file_path: str, info: dict, start_datetime: str, end_datetime: str) -> None:
+    """
+    The print_statistics function prints the statistics of a given log file.
+
+    :param file_path: str: Specify the path to the file that is being processed
+    :param info: dict: Store the information about requests
+    :param start_datetime: str: Specify the start of the period for which statistics are calculated
+    :param end_datetime: str: Specify the end of the period for which tatistics are calculated
+    :return: A string with statistics for a given file
+    """
     successful_requests_quantity = int()
     unsuccessful_requests_quantity = int()
 
@@ -85,7 +117,17 @@ def print_statistics(file_path, info, start_datetime, end_datetime):
     print(output)
 
 
-def show_statistics_plot(file_path, info, start_datetime, end_datetime):
+def save_statistics_plot(file_path: str, info: dict, start_datetime: str, end_datetime: str) -> None:
+    """
+    The save_statistics_plot function saves a plot of the statistics for a file in the given zip archive.
+
+
+    :param file_path: str: Specify the path to the zip file that contains the data
+    :param info: dict: Dictionary containing the status codes and their quantities
+    :param start_datetime: str:  Specify the start time to be analyzed
+    :param end_datetime: str: Specify the end time to be analyzed
+    :return: A plot object
+    """
     df = pd.DataFrame(info.items(), columns=['Status code', 'Quantity'])
     df.sort_values(by='Quantity', ignore_index=True, ascending=False, inplace=True)
 
@@ -103,12 +145,18 @@ def show_statistics_plot(file_path, info, start_datetime, end_datetime):
 
     file_name = file_path.split('/')[-1].strip(".zip")
 
-    plt.gca().set_title(file_name, fontsize=20, fontweight='bold', pad=20)
+    plot.suptitle(file_name, fontsize=20, fontweight='bold')
+
+    title = f"\nStart: {start_datetime}, end: {end_datetime}"
+    plt.gca().set_title(title, fontsize=16, pad=20)
+
     plt.gca().yaxis.set_major_locator(MaxNLocator(integer=True))
 
     plt.xticks(fontsize=14)
     plt.xlabel("Status code", fontsize=14, fontweight='bold', labelpad=20)
+
     plt.yticks(fontsize=14)
     plt.ylabel("Quantity", fontsize=14, fontweight='bold', labelpad=20)
 
-    plt.show()
+    os.makedirs("statistics/", exist_ok=True)
+    plt.savefig("statistics/plot")
