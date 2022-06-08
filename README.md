@@ -38,3 +38,15 @@ List of typical operations for managing a given structure:
 **Additional methods required:**
 * Adding an element in ascending order of the year of manufacture of the device
 * Output of all devices with the set limit of measurement
+
+# Laboratory work 11
+This laboratory work involves writing code that performs a task from a table in using regular expressions. 
+
+## Task description
+**The file should be downloaded as an archive and opened as an archive in Python**
+
+| Variant | Task                                                                                                                      |
+|---------|---------------------------------------------------------------------------------------------------------------------------|
+| **19**  | Count the number of failed requests for each requesting machine between _08/Mar/2004:05:10:27_ and _12/Mar/2004:16:21:50_ |
+
+> **Log file:** https://drive.google.com/file/d/0B1k21nkk13PYZ0l5eUdkOUtOa2M/view?ts=629e46df&resourcekey=0-nRp4oErzb90C-ztfeqp9LQ
